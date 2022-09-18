@@ -1,0 +1,4 @@
+/var/folders/s3/m_67b11x5lv0jmq524p2swxh0000gn/T/tmpgl6voxds/dolfin_expression_6664f94bf635afd95a22288a4e15f550.cpp:61:64: error: extraneous ')' before ';'
+          values[0] = 1 + x[1]*x[0] - 2*x[1]*x[1] / (1 + x[0]) );
+                                                               ^
+1 error generated.

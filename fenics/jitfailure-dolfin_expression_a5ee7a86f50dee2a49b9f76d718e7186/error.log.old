@@ -1,0 +1,7 @@
+/var/folders/s3/m_67b11x5lv0jmq524p2swxh0000gn/T/tmpmw_w__gd/dolfin_expression_a5ee7a86f50dee2a49b9f76d718e7186.cpp:61:32: error: use of undeclared identifier 'a'
+          values[0] = 0.4*exp(-a*pow(x[0], 2) - a*pow(x[1], 2));
+                               ^
+/var/folders/s3/m_67b11x5lv0jmq524p2swxh0000gn/T/tmpmw_w__gd/dolfin_expression_a5ee7a86f50dee2a49b9f76d718e7186.cpp:61:49: error: use of undeclared identifier 'a'
+          values[0] = 0.4*exp(-a*pow(x[0], 2) - a*pow(x[1], 2));
+                                                ^
+2 errors generated.
