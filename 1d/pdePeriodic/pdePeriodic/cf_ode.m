@@ -5,7 +5,7 @@ close all
 
 global beta b n dc df q mu lambda eta 
 
-beta = .28;
+beta = .68;
 b = 1.;
 n = 1.0;
 dc = 9e-3;
