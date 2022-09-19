@@ -18,9 +18,9 @@ n = 1;
 q = 0.0;
 
 
-Dc = 1.32e-7;
-Df = 10.32e-6;
-Dw = 1000.32e-0;
+Dc = 1.32e-10;
+Df = 1.32e-10;
+Dw = 1.32e-1;
 
 % Dc = 0; Df = 0; Dw = 0;
 
@@ -30,9 +30,9 @@ nx = length(xlist);
 dt = 1;
 tlist=0:dt:500;
 
-ic = [0.400*ones(1,nx);
-      0.3*ones(1,nx);
-      (lambda/mu)*ones(1,nx)];
+ic = [0.1727*ones(1,nx);
+      0.7698*ones(1,nx);
+      6.6667*ones(1,nx)];
   
 % %%% maybe do gausians
 % % ic(1,55) = 0.2;
