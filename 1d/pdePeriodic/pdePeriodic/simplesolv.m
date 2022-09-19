@@ -22,6 +22,7 @@ y0 = [c0, f0, w0];
 tspan = [0 1000];
 [t, y] = ode45(@(t,y) rhs(t,y), tspan, y0);
 
+figure()
 hold on
 plot(t, y(:,1), 'Linewidth', 2)
 plot(t, y(:,2), 'Linewidth', 2)

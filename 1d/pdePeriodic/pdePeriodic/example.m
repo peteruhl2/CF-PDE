@@ -1,26 +1,20 @@
-%%% 1D CF PDE solver using pbcpdeSolver.m from
-%%% https://www.mathworks.com/matlabcentral/fileexchange/45955-periodic-reaction-diffusion-pde-solver
-%%%
-%%% 7/5/22
+%%% Example from a paper
 
-global r1 r2 b n d1 d2 q mu lambda eta Dc Df Dw
+global ru rv rw bu bv su sw ss Du Dv Dw
 
-r1 = 2.0;
-r2 = r1;
-d1 = 0.1; % 3e-2;
-d2 = 0.015; % 3e-2;
-lambda = 2.6;
-mu = 0.2;
-eta = 1.1;
-
-b = 1;
-n = 1;
-q = 0.0;
+ru = 1.0;
+rv = 1.0;
+rw = 0.01;
+bu = 0.2;
+bv = 0;
+su = 0;
+sw = 2.0;
+ss = 1.0;
 
 
-Dc = 1.32e-7;
-Df = 10.32e-6;
-Dw = 1000.32e-0;
+Du = 1.32e-0;
+Dv = 10.32e-0;
+Dw = 1000.32e-0*0;
 
 % Dc = 0; Df = 0; Dw = 0;
 
@@ -28,26 +22,26 @@ xlist = linspace(0,1,100);
 nx = length(xlist);
 
 dt = 1;
-tlist=0:dt:500;
+tlist=0:dt:5000;
 
-ic = [0.400*ones(1,nx);
-      0.3*ones(1,nx);
-      (lambda/mu)*ones(1,nx)];
+% ic = [0.600*ones(1,nx);
+%       0.6*ones(1,nx);
+%       (0.6)*ones(1,nx)];
   
-% %%% maybe do gausians
-% % ic(1,55) = 0.2;
-% % ic(1,10) = 0.1;
-% 
-% ic(1,:) = ic(1,:) + 0.6*exp(-(100*(xlist - 0.4).^2)/0.1);
-% % ic(1,:) = ic(1,:) + 0.1*exp(-(10*(xlist - 0.7).^2)/0.01);
-% % ic(1,:) = ic(1,:) + 0.1*exp(-(10*(xlist - 0.9).^2)/0.01);
-% 
-% ic(2,:) = 0.5*exp(-(15*(xlist - 0.6).^2)/0.05);
-% 
-% 
-% % ic(2,48) = 0.3;
-% % ic(2,58) = 0.4;
-% % ic(2,10) = 0.4;
+%%% maybe do gausians
+% ic(1,55) = 0.2;
+% ic(1,10) = 0.1;
+
+ic(1,:) = ic(1,:) + 0.6*exp(-(100*(xlist - 0.4).^2)/0.1);
+% ic(1,:) = ic(1,:) + 0.1*exp(-(10*(xlist - 0.7).^2)/0.01);
+% ic(1,:) = ic(1,:) + 0.1*exp(-(10*(xlist - 0.9).^2)/0.01);
+
+ic(2,:) = 0.5*exp(-(15*(xlist - 0.6).^2)/0.05);
+
+
+% ic(2,48) = 0.3;
+% ic(2,58) = 0.4;
+% ic(2,10) = 0.4;
 
 
 %%% Solve
@@ -121,20 +115,24 @@ title('Oxygen','Fontsize',16)
 
 
 
-function [D,s] = my_pde(x,t,u)
-global r1 r2 b n d1 d2 q mu lambda eta Dc Df Dw
+function [D,s] = my_pde(x,t,U)
+global ru rv rw bu bv su sw ss Dc Df Dw
 
 %%% Diffusions coefficients
 D = [Dc; Df; Dw];
 
-c = u(1,:);
-f = u(2,:);
-w = u(3,:);
+u = U(1,:);
+v = U(2,:);
+w = U(3,:);
 
-dcdt = (r1*w.^n./(b^n + w.^n)).*c.*(1 - (c + f)) - d1*c;
-dfdt = (r2*(1 - w.^n./(b^n + w.^n))).*f.*(1 - (f + c)) - d2.*f - q.*f.*w;
-dwdt = lambda - mu*w - eta*c.*w;
+% dcdt = (r1*w.^n./(b^n + w.^n)).*c.*(1 - (c + f)) - d1*c;
+% dfdt = (r2*(1 - w.^n./(b^n + w.^n))).*f.*(1 - (f + c)) - d2.*f - q.*f.*w;
+% dwdt = lambda - mu*w - eta*c.*w;
 
-s = [dcdt; dfdt; dwdt];
+dudt = -ru*u + (ss*(u.^2 + bu))./(v.*(1+su*u.^2).*(1+sw*w));
+dvdt = -rv*v + ss*u.^2 + bv;
+dwdt = -rw*w + rw*u;
+
+s = [dudt; dvdt; dwdt];
 
 end
