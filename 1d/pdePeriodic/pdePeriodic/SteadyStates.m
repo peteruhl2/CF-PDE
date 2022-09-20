@@ -5,7 +5,7 @@
 %%%
 %%% started 9/16/22
 
-global beta d1 d2 lambda mu eta
+global beta d1 d2 lambda mu eta D
 
 beta = 2.0;
 d1 = 0.1;
@@ -14,6 +14,11 @@ lambda = 2.6;
 mu = 0.2;
 eta = 1.1;
 
+Dc = 10;
+Df = 0;
+Dw = 0;
+
+D = diag([Dc,Df,Dw]);
 
 %%% 1 extinction
 c1 = 0;
@@ -64,7 +69,7 @@ ss4 = eig(E4)
 %%% Functions =============================================================
 
 function J = jac(c,f,w)
-global beta d1 d2 mu eta
+global beta d1 d2 mu eta 
 
 J(1,1) = -d1 - (c*w*beta)/(1+w) + (w*beta*(1-c-f))/(1+w);
 J(1,2) = -(c*w*beta)/(1+w);
