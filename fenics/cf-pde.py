@@ -24,9 +24,9 @@ q = 4.48e-0
 mu = 0.01312
 _lambda = 0.01312
 eta = 10.54
-Dc = 10.32e-0
-Df = 1.32e-10
-Dw = 1.32e-10
+Dc = 10.32e-8
+Df = 1.32e-3
+Dw = 1.32e-2
 
 beta = Constant(beta)
 b = Constant(b)

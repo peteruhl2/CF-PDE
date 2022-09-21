@@ -5,8 +5,8 @@
 
 global r1 r2 b n dc df q mu lambda eta Dc Df Dw
 
-r1 = 2.0;
-r2 = 1.5;
+r1 = 2.0*0;
+r2 = r1;
 b = 1;
 n = 1;
 dc = 0.1*0; % 3e-2;
@@ -18,7 +18,7 @@ eta = .1;
 
 Dc = 1.32e0*0;
 Df = 100.32e-0;
-Dw = 1.32e-10;
+Dw = 1.32e-5;
 
 % Dc = 0; Df = 0; Dw = 0;
 
