@@ -58,13 +58,13 @@ v_1, v_2, v_3 = TestFunctions(V)
 u = Function(V)
 u_n = Function(V)
 
-# # Guasian ICs for C and F
-# u_0 = Expression(('0.1*exp(-100*pow(x[0]-0.4, 2) - 100*pow(x[1]-0.5, 2))','0.4*exp(-100*pow(x[0]-0.6, 2) - 100*pow(x[1]-0.6, 2))','0.1'), degree = 2)
-# u_n = interpolate(u_0, V)
-
-# Constant initial conditions for checking against ODE
-u_0 = Expression(('0.4','0.3','0.1'), degree = 2)
+# Guasian ICs for C and F
+u_0 = Expression(('0.1*exp(-100*pow(x[0]-0.4, 2) - 100*pow(x[1]-0.5, 2))','0.4*exp(-100*pow(x[0]-0.6, 2) - 100*pow(x[1]-0.6, 2))','0.1'), degree = 2)
 u_n = interpolate(u_0, V)
+
+# # Constant initial conditions for checking against ODE
+# u_0 = Expression(('0.4','0.3','0.1'), degree = 2)
+# u_n = interpolate(u_0, V)
 
 # Split system functions to access components
 u_1, u_2, u_3 = split(u)
