@@ -1,0 +1,4 @@
+/var/folders/s3/m_67b11x5lv0jmq524p2swxh0000gn/T/tmp6btsplvz/dolfin_expression_9ba4f92c645d99df7459f1972a666a1d.cpp:62:46: error: use of undeclared identifier 'L'
+          values[1] = 0.4*exp(-100*pow(x[0]- L/2, 2) - 100*pow(x[1]-0.6, 2));
+                                             ^
+1 error generated.

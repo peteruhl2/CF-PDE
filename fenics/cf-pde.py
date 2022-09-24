@@ -43,8 +43,9 @@ Dw = Constant(Dw)
 
 # Read mesh from file
 # mesh = Mesh('navier_stokes_cylinder/cylinder.xml.gz')
+L = 2
 nx = ny = 30
-mesh = RectangleMesh(Point(0, 0), Point(1, 1), nx, ny)
+mesh = RectangleMesh(Point(0, 0), Point(L, L), nx, ny)
 
 # Define function space for system of concentrations
 P1 = FiniteElement('P', triangle, 1)
@@ -59,7 +60,7 @@ u = Function(V)
 u_n = Function(V)
 
 # Guasian ICs for C and F
-u_0 = Expression(('0.1*exp(-100*pow(x[0]-0.4, 2) - 100*pow(x[1]-0.5, 2))','0.4*exp(-100*pow(x[0]-0.6, 2) - 100*pow(x[1]-0.6, 2))','0.1'), degree = 2)
+u_0 = Expression(('0.1*exp(-100*pow(x[0]-0.4, 2) - 100*pow(x[1]-0.5, 2))','0.4*exp(-100*pow(x[0]- L/2, 2) - 100*pow(x[1]-0.6, 2))','0.1'), degree = 2, L=L)
 u_n = interpolate(u_0, V)
 
 # # Constant initial conditions for checking against ODE
