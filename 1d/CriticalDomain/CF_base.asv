@@ -8,8 +8,8 @@ beta = 2.0;
 dc = 0.01;
 df = 0.01;
 
-local_lambda = 1.0;
-mu = 1;
+local_lambda = 100.0;
+mu = 0.1;
 eta = 0;
 
 Dc = 4e-1;
@@ -88,10 +88,12 @@ end
 
 %%% IC function
 function u0 = icfun(x)
+global beta dc df mu eta local_lambda Dc Df Dw
+
 
 % u0 = exp(-(x).^2);
 
-u0 = [1; 1; exp(-(x).^2)];
+u0 = [1; 1; 0];
 
 
 end
