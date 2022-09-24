@@ -27,6 +27,7 @@ for i = 1:length(x)
 end
 
 
+return
 
 %%% Plots =================================================================
 
@@ -107,10 +108,10 @@ end
 
 %%% Spatial lambda function, return constant outside of a radius
 function l = Lambda(x,L)
-global lambda_local
+global local_lambda
 
 if abs(x) > 0.95*L
-    l = lambda_local;
+    l = local_lambda;
 else
     l = 0;
 end    
