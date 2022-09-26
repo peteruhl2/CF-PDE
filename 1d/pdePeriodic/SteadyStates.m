@@ -7,12 +7,20 @@
 
 global beta d1 d2 lambda mu eta
 
+% beta = 2.0;
+% d1 = 0.1;
+% d2 = 0.015;
+% lambda = 2.6;
+% mu = 0.2;
+% eta = 1.1;
+
 beta = 2.0;
-d1 = 0.1;
-d2 = 0.015;
-lambda = 2.6;
-mu = 0.2;
-eta = 1.1;
+d1 = 9e-1;
+d2 = 9e-1;
+mu = 0.001;
+lambda = 0.002;
+eta = 5.4e-6;
+
 
 
 %%% 1 extinction
