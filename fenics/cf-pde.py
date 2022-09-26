@@ -44,8 +44,8 @@ Dw = Constant(Dw)
 # Read mesh from file
 # mesh = Mesh('navier_stokes_cylinder/cylinder.xml.gz')
 L = 2
-nx = ny = 30
-mesh = RectangleMesh(Point(0, 0), Point(L, L), nx, ny)
+nx = ny = 20
+mesh = RectangleMesh(Point(-L, -L), Point(L, L), nx, ny)
 
 # Define function space for system of concentrations
 P1 = FiniteElement('P', triangle, 1)
