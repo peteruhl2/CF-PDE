@@ -4,21 +4,21 @@
 
 global beta dc df mu eta local_lambda Dc Df Dw L q
 
-beta = 2.20;
-dc = 0.01;
-df = 0.01;
+beta = 5.0;
+dc = 1.0e-1;
+df = 8.0e-1;
 
-local_lambda = 1.0;
-mu = 1;
-eta = 1.0;
-q = 5.70;
+local_lambda = 10.0;
+mu = 0.01;
+eta = 5.0;
+q = 4.5;
 
-Dc = 4e-4;
-Df = 4e-1;
-Dw = 4.0e-0;
+Dc = 4e-6;
+Df = 4e-4;
+Dw = 4.0e-1;
 
 %%% Domain
-L = 2.;
+L = 8;
 x = linspace(-L,L,200);
 
 tmax = 500;

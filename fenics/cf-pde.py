@@ -135,3 +135,15 @@ for n in range(num_steps):
 
 # Hold plot
 #interactive()
+
+outfile1 = open('cf_sys/meshout.txt','w')
+outfile2 = open('cf_sys/u out.txt','w')
+
+for x in mesh.coordinates():
+  print(x[0], x[1], file = outfile1)
+  
+for x in u.vector():
+  print(x, file = outfile2)
+  
+outfile1.close()
+outfile2.close()
