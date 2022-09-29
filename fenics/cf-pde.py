@@ -8,6 +8,8 @@ TODO: Write desciption
 
 from __future__ import print_function
 from fenics import *
+import numpy as np
+import sys
 
 T = 10.0            # final time
 num_steps = 500    # number of time steps
@@ -43,7 +45,7 @@ Dw = Constant(Dw)
 
 # Read mesh from file
 # mesh = Mesh('navier_stokes_cylinder/cylinder.xml.gz')
-L = 2
+L = 0.5
 nx = ny = 20
 mesh = RectangleMesh(Point(-L, -L), Point(L, L), nx, ny)
 
@@ -136,14 +138,29 @@ for n in range(num_steps):
 # Hold plot
 #interactive()
 
-outfile1 = open('cf_sys/meshout.txt','w')
-outfile2 = open('cf_sys/u out.txt','w')
+### write out function values for anaerobic population
+u_1, u_2, u_3 = split(u)
 
-for x in mesh.coordinates():
-  print(x[0], x[1], file = outfile1)
-  
-for x in u.vector():
-  print(x, file = outfile2)
-  
-outfile1.close()
-outfile2.close()
+outfile = open('cf_sys/u out.txt','w')
+
+x = np.linspace(-L,L,100)
+y = np.linspace(-L,L,100)
+X,Y = np.meshgrid(x,y)
+results = np.zeros((len(x),len(y)))
+
+### note that the solution funciton u can be called
+print("Writing anaerobe function to file...")
+for i in range(len(x)):
+      for j in range(len(y)):
+            results[i,j] = u_2( [x[i], y[j]])
+            
+results = np.reshape(results,((len(x)*len(y))))
+
+for p in results:
+      print(p, file = outfile)
+      
+outfile.close()
+
+
+print(sys.argv[1])
+# print(len(sys.argv))

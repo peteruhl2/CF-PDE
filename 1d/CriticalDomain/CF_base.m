@@ -15,19 +15,20 @@ q = 4.5;
 
 Dc = 4e-6;
 Df = 4e-4;
-Dw = 4.0e-1;
+Dw = 4.0e-0;
 
 %%% Domain
-L = 8;
-x = linspace(-L,L,200);
+L = 8.30;
+x = linspace(-L,L,100);
 
-tmax = 500;
+tmax = 600;
 t = linspace(0,tmax);
 dt = tmax/(length(t));
 
+tic
 m = 0;
 sol = pdepe(m, @rhs, @icfun, @bcs, x, t);
-
+toc
 
 %%% Plots =================================================================
 

@@ -11,10 +11,10 @@ C = 5/sqrt(6);
 D = 1.0;
 
 %%% Domain
-L = .7;
+L = 40.;
 x = linspace(-L,L);
 
-tmax = 20;
+tmax = 5;
 t = linspace(0,tmax);
 dt = tmax/(length(t));
 
@@ -26,19 +26,19 @@ sol = pdepe(m, @rhs, @icfun, @bcs, x, t);
 
 %%% Plots =================================================================
 
-% % ---- Plot the solution --- %
-% step=1;  %step every second
-% for tt=1:step:length(t)
-% % disp(sprintf('time = %d',(tt-1)*dt));
-% disp((sprintf('time = %.02f out of %d',tt*dt,tmax)));
-% plot(x,sol(tt,:));
-% % legend('c','f','w');
-% % ylim([-0.1,lambda/mu]);
-% ylim([-0.1,1.1]);
-% drawnow;
-% %     pause(0.0025);
-% end
-% % -------------------------- %
+% ---- Plot the solution --- %
+step=1;  %step every second
+for tt=1:step:length(t)
+% disp(sprintf('time = %d',(tt-1)*dt));
+disp((sprintf('time = %.02f out of %d',tt*dt,tmax)));
+plot(x,sol(tt,:));
+% legend('c','f','w');
+% ylim([-0.1,lambda/mu]);
+ylim([-0.1,1.1]);
+drawnow;
+%     pause(0.0025);
+end
+% -------------------------- %
 
 
 
@@ -76,10 +76,10 @@ function u0 = icfun(x)
 global C
 
 
-u0 = exp(-(x).^2);
+% u0 = exp(-(x).^2);
 
-% % traveling wave solution
-% u0 = (1 + C*exp((x+80)/sqrt(6*1.0)))^-2;
+% traveling wave solution
+u0 = (1 + C*exp((x+30)/sqrt(6*1.0)))^-2;
 
 end
 
@@ -87,17 +87,17 @@ end
 function [pl,ql,pr,qr] = bcs(xl,ul,xr,ur,t)
 global D
 
-%%% Diriclet ul = ur = 0
-pl = ul;
-ql = 0;
-pr = ur;
-qr = 0;
+% %%% Diriclet ul = ur = 0
+% pl = ul;
+% ql = 0;
+% pr = ur;
+% qr = 0;
 
-% %%% No flux
-% pl = 0;
-% ql = 1;
-% pr = 0;
-% qr = 1;
+%%% No flux
+pl = 0;
+ql = 1;
+pr = 0;
+qr = 1;
 
 end
 

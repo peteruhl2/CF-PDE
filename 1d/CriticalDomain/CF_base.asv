@@ -4,30 +4,31 @@
 
 global beta dc df mu eta local_lambda Dc Df Dw L q
 
-beta = 2.0;
-dc = 0.01;
-df = 0.01;
+beta = 5.0;
+dc = 1.0e-1;
+df = 8.0e-1;
 
 local_lambda = 10.0;
-mu = 1;
-eta = 3.0;
-q = 2.70;
+mu = 0.01;
+eta = 5.0;
+q = 4.5;
 
-Dc = 4e-4;
-Df = 4e-1;
-Dw = 40.0e-0;
+Dc = 4e-6;
+Df = 4e-4;
+Dw = 4.0e-3;
 
 %%% Domain
-L = 1.;
-x = linspace(-L,L,200);
+L = 1.0;
+x = linspace(-L,L,100);
 
-tmax = 200;
+tmax = 30;
 t = linspace(0,tmax);
 dt = tmax/(length(t));
 
+tic
 m = 0;
 sol = pdepe(m, @rhs, @icfun, @bcs, x, t);
-
+toc
 
 %%% Plots =================================================================
 
@@ -104,6 +105,7 @@ f = [Dc*dudx(1); Df*dudx(2); Dw*dudx(3)];
 s = [(beta*u(3)/(1 + u(3)))*u(1)*(1 - u(1) - u(2)) - dc*u(1);
      (beta*(1 - u(3)/(1+u(3))))*u(2)*(1 - u(1) - u(2)) - df*u(2) - q*u(2)*u(3);
      l - mu*u(3) - eta*u(1)*u(3)];
+
 end
 
 %%% IC function
