@@ -162,5 +162,6 @@ for p in results:
 outfile.close()
 
 
-print(sys.argv[1])
+print("Argv[1] is ", sys.argv[1])
+print("Type of argv[1] is ", type(sys.argv[1]))
 # print(len(sys.argv))

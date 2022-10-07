@@ -15,13 +15,13 @@ q = 4.5;
 
 Dc = 4e-6;
 Df = 4e-4;
-Dw = 4.0e-0;
+Dw = 1.0e-0;
 
 %%% Domain
-L = 8.30;
+L = 1.4;
 x = linspace(-L,L,100);
 
-tmax = 600;
+tmax = 580;
 t = linspace(0,tmax);
 dt = tmax/(length(t));
 

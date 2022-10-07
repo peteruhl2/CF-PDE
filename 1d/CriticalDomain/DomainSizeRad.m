@@ -19,17 +19,17 @@ q = 4.5;
 
 Dc = 4e-6;
 Df = 4e-4;
-Dw = 1.0e-3;
+Dw = 1.0e0;
 
 % last spot is for
 p = [beta, dc, df, local_lambda, mu, eta, q, Dc, Df, Dw];
 
-tmax = 30;
+tmax = 80;
 t = linspace(0,tmax,50);
 dt = tmax/(length(t));
 
 %%% Solver loop
-DomainSize = linspace(0.1, 20, 100);
+DomainSize = linspace(0.1, 4, 100);
 results = zeros(length(DomainSize),1);
 m = 0;
 
