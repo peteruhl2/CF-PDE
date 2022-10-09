@@ -16,17 +16,17 @@ n = 1.0;
 dc = 1.0e-1;
 df = 8.0e-1;
 q = .5e-0;
-mu = 1;
+mu = .1;
 lambda = .10;
 eta = 10.0;
 
 %%% diffusion coefficients and wave speed
-Dc = 1e-6;
-Df = 1e-4;
+Dc = 1e-1;
+Df = 1e-1;
 Dw = 10e-0;
 c = 10000;
 
-y0 = [0.4; 0.1; 0.3; 0.1; lambda/mu; 0.1];
+y0 = [.4; 0.1; 0.3; 0.1; lambda/mu; 0.1];
 tspan = [0 1];
 
 [t,y] = ode15s(@(t,y) rhs(t,y), tspan, y0);
