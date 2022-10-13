@@ -1,27 +1,44 @@
-%%% CF PDE with non-periodic boundaries
+%%% Implementing travling wave solution of CF PDE
+%%% this program will solve the ode system to find the potential TW
+%%% solution then use that as an IC in the PDE
 %%%
-%%% started 9/22/2022
+%%% started 10/11/2022
 
-global beta dc df mu eta local_lambda Dc Df Dw L q
+global beta dc df mu eta local_lambda Dc Df Dw L q c
+global c0 f0 w0 x
 
-beta = 5.0;
+beta = 50.0;
 dc = 1.0e-1;
-df = 8.0e-1;
+df = 4.0e-0;
 
-local_lambda = 10.0;
-mu = 0.01;
-eta = 5.0;
-q = 4.5;
+local_lambda = .10;
+mu = 0.1;
+eta = 1.0;
+q = 5e-1;
 
-Dc = 4e-6;
-Df = 4e-4;
-Dw = 1.0e-0;
+%%% diffusion coefficients and wave speed
+Dc = 1e-0;
+Df = 1e-0;
+Dw = 10e-4;
+c = 10000;
 
 %%% Domain
-L = .4;
+L = 50;
 x = linspace(-L,L,100);
 
-tmax = 580;
+%%% solve ode for TW solution and interpolate solution
+y0 = [.04; 0.; 2; 0.; local_lambda/mu; 0.];
+domain = [-L L];
+[t,y] = ode15s(@(t,y) TWrhs(t,y), domain, y0);
+
+c0 = interp1(t,y(:,1),x);
+f0 = interp1(t,y(:,3),x);
+w0 = interp1(t,y(:,5),x);
+
+
+
+%%% solve pde
+tmax = 5;
 t = linspace(0,tmax);
 dt = tmax/(length(t));
 
@@ -47,7 +64,6 @@ drawnow;
 end
 close
 % -------------------------- %
-
 
 
 [X,T] = meshgrid(x,t);
@@ -88,16 +104,39 @@ title('Oxygen')
 
 %%% Functions =============================================================
 
+%%% TW ode function
+function yp = TWrhs(t,y)
+global beta dc df q local_lambda mu eta Dc Df Dw c
+
+phic = y(1);
+psic = y(2);
+phif = y(3);
+psif = y(4);
+phiw = y(5);
+psiw = y(6);
+
+yp(1) = psic;
+yp(2) = (-c*psic - (beta*phiw/(1+phiw))*phic*(1-phic-phif) + dc*phic)/Dc;
+yp(3) = psif;
+yp(4) = (-c*psif - beta*(1 - phiw/(1+phiw))*phif*(1-phic-phif) + df*phif + q*phif*phiw)/Df;
+yp(5) = psiw;
+yp(6) = (-c*psiw - local_lambda + mu*phiw + eta*phic*phiw)/Dw;
+
+yp = yp';
+end
+
 %%% RHS PDE function
 function [c,f,s] = rhs(x,t,u,dudx)
 global beta dc df mu eta Dc Df Dw L local_lambda q
 
-%%% assign spatial lambda value
-if abs(x) > 0.9*L
-    l = local_lambda;
-else
-    l = 0;
-end  
+% %%% assign spatial lambda value
+% if abs(x) > 1.0*L
+%     l = local_lambda;
+% else
+%     l = 0;
+% end  
+
+l = local_lambda;
 
 c = [1; 1; 1];
 f = [Dc*dudx(1); Df*dudx(2); Dw*dudx(3)];
@@ -109,14 +148,16 @@ s = [(beta*u(3)/(1 + u(3)))*u(1)*(1 - u(1) - u(2)) - dc*u(1);
 end
 
 %%% IC function
-function u0 = icfun(x)
+function u0 = icfun(local_x)
+global c0 f0 w0 x
 
-% u0 = exp(-(x).^2);
+% u0 = [0.4*exp(-(x).^2); 
+%       0.2*exp(-(x).^2); 
+%       1 - exp(-(x).^2)];
 
-u0 = [0.4*exp(-(x).^2); 
-      0.2*exp(-(x).^2); 
-      1 - exp(-(x).^2)];
-
+u0 = [interp1(x,c0,local_x); 
+      interp1(x,f0,local_x);; 
+      interp1(x,w0,local_x);];
 
 end
 
@@ -135,17 +176,5 @@ pl = [0; 0; 0];
 ql = [1; 1; 1];
 pr = [0; 0; 0];
 qr = [1; 1; 1];
-
-end
-
-%%% Spatial lambda function, return constant outside of a radius
-function l = Lambda(x,L)
-global local_lambda L
-
-if abs(x) > 0.9*L
-    l = local_lambda;
-else
-    l = 0;
-end    
 
 end

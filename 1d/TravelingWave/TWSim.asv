@@ -1,6 +1,7 @@
-%%% CF PDE with non-periodic boundaries
+%%% Implementing travling wave solution of CF PDE
+%%% this program will solve the ode system to find the potentia
 %%%
-%%% started 9/22/2022
+%%% started 10/11/2022
 
 global beta dc df mu eta local_lambda Dc Df Dw L q
 
@@ -18,7 +19,7 @@ Df = 4e-4;
 Dw = 1.0e-0;
 
 %%% Domain
-L = .4;
+L = 1.4;
 x = linspace(-L,L,100);
 
 tmax = 580;

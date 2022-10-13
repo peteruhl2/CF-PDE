@@ -19,7 +19,7 @@ q = 4.5;
 
 Dc = 4e-6;
 Df = 4e-4;
-Dw = 1.0e0;
+Dw = 0.5e0;
 
 % last spot is for
 p = [beta, dc, df, local_lambda, mu, eta, q, Dc, Df, Dw];
