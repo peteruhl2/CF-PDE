@@ -18,7 +18,7 @@ Df = 4e-4;
 Dw = 1.0e-0;
 
 %%% Domain
-L = .4;
+L = 3.4;
 x = linspace(-L,L,100);
 
 tmax = 580;
