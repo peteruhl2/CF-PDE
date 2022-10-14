@@ -37,7 +37,7 @@ step=1;  %step every second
 for tt=1:step:length(t)
 % disp(sprintf('time = %d',(tt-1)*dt));
 disp((sprintf('time = %.02f out of %d',tt*dt,tmax)));
-plot(x,sol(tt,:,1),x,sol(tt,:,2),x,sol(tt,:,3));
+plot(x,sol(tt,:,1),x,sol(tt,:,2),x,sol(tt,:,3),'linewidth',2);
 % legend('c','f','w');
 % ylim([-0.1,lambda/mu]);
 ylim([-0.1,1.1]);
