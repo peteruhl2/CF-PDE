@@ -18,15 +18,15 @@ df = 4.0e0;
 q = .5e1;
 mu = .1;
 lambda = .10;
-eta = 1.0;
+eta = 10.0;
 
 %%% diffusion coefficients and wave speed
 Dc = 1e-0;
 Df = 1e0;
 Dw = 10e1;
-c = 10000;
+c = 100;
 
-L = 50.0;
+L = .50;
 y0 = [.04; 0.; 2; 0.; lambda/mu; 0.];
 domain = [-L L];
 

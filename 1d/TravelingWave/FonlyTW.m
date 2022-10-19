@@ -12,14 +12,14 @@ r = 25.0;
 d = 1.0;
 lambda = 1.0;
 mu = 0.9;
-q = 0;
+q = 2;
 
-c = 1.0;
-Df = 1e-3;
-Dw = 1e-1;
+c = 10.0;
+Df = 1e-2;
+Dw = 1e-0;
 
 L = 25.0;
-y0 = [0.8; 0.; lambda/mu; 0.];
+y0 = [0.4; 0.; lambda/mu; 0.];
 domain = [-L L];
 
 [t,y] = ode15s(@(t,y) rhs(t,y), domain, y0);

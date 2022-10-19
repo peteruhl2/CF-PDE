@@ -20,10 +20,10 @@ q = 5e-1;
 Dc = 1e-0;
 Df = 1e-0;
 Dw = 10e-4;
-c = 10000;
+c = 100;
 
 %%% Domain
-L = 50;
+L = 0.5;
 x = linspace(-L,L,100);
 
 %%% solve ode for TW solution and interpolate solution
