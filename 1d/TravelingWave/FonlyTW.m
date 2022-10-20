@@ -19,7 +19,7 @@ Df = 1e-2;
 Dw = 1e-0;
 
 L = 25.0;
-y0 = [0.4; 0.; lambda/mu; 0.];
+y0 = [0.50; 20.2; lambda/mu; -10.2];
 domain = [-L L];
 
 [t,y] = ode15s(@(t,y) rhs(t,y), domain, y0);

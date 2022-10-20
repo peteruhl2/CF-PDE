@@ -10,22 +10,32 @@
 %%% started 10/3/22
 
 global r d lambda mu q c Df Dw
+global x f0 w0
 
-r = 25.0;
+r = 15.0;
 d = 1.0;
-lambda = 2.0;
+lambda = 1.0;
 mu = 0.9;
-q = 1;
+q = 2;
 
-c = 10.0;
-Df = 1e-2;
+c = 100.0;
+Df = 1e-8;
 Dw = 1e-0;
 
 %%% Domain
-L = 3.4;
+L = 10.;
 x = linspace(-L,L,100);
 
-tmax = 580;
+%%% solve ode for traveling wave solution
+y0 = [0.1; 0.; lambda/mu; 0.];
+domain = [-L L];
+
+[t,y] = ode15s(@(t,y) TWrhs(t,y), domain, y0);
+
+f0 = interp1(t,y(:,1),x);
+w0 = interp1(t,y(:,3),x);
+
+tmax = 5;
 t = linspace(0,tmax);
 dt = tmax/(length(t));
 
@@ -41,11 +51,12 @@ step=1;  %step every second
 for tt=1:step:length(t)
 % disp(sprintf('time = %d',(tt-1)*dt));
 disp((sprintf('time = %.02f out of %d',tt*dt,tmax)));
-plot(x,sol(tt,:,1),x,sol(tt,:,2),x,sol(tt,:,3),'linewidth',2);
+plot(x,sol(tt,:,1),x,sol(tt,:,2),'linewidth',2);
 % legend('c','f','w');
 % ylim([-0.1,lambda/mu]);
-ylim([-0.1,1.1]);
+% ylim([-0.1,1.1]);
 % axis tight
+legend('Anaerobes','Oxygen')
 drawnow;
 %     pause(0.0025);
 end
@@ -58,7 +69,7 @@ close
 
 %%% anaerobes
 figure()
-contourf(X,T,sol(:,:,2))
+contourf(X,T,sol(:,:,1))
 xlabel('x')
 ylabel('t')
 colorbar
@@ -66,62 +77,72 @@ title('Anaerobes')
 
 %%% oxygen
 figure()
-contourf(X,T,sol(:,:,3))
+contourf(X,T,sol(:,:,2))
 xlabel('x')
 ylabel('t')
 colorbar
 title('Oxygen')
 
 
-
-
-
-
-
-
-
-
-
 %%% Functions =============================================================
 
-%%% RHS PDE function
-function [c,f,s] = rhs(x,t,u,dudx)
+%%% ode function
+function yp = TWrhs(t,y)
 global r d lambda mu q c Df Dw
 
-c = [1; 1];
-f = [Df*dudx(2); Dw*dudx(3)];
+phif = y(1);
+psif = y(2);
+phiw = y(3);
+psiw = y(4);
 
-s = [(r*(1 - u(2)/(1+u(2))))*u(1)*(1 - u(1)) - df*u(1) - q*u(1)*u(2);
-     lambda - mu*u(2)];
+yp(1) = psif;
+yp(2) = (-c*psif - r*(1 - phiw/(1+phiw))*phif*(1-phif) + d*phif + q*phif*phiw)/Df;
+yp(3) = psiw;
+yp(4) = (-c*psiw - lambda + mu*phiw)/Dw;
+
+yp = yp';
+end
+
+%%% RHS PDE function
+function [c_pdefunc,f,s] = rhs(x,t,u,dudx)
+global r d lambda mu q c Df Dw
+
+c_pdefunc = [1; 1];
+f = [Df*dudx(1); 
+     Dw*dudx(2)];
+
+s = [(r*(1 - u(2)/(1+u(2))))*u(1)*(1 - u(1)) - d*u(1) - q*u(1)*u(2);
+     0*lambda - mu*u(2)];
 
 end
 
 %%% IC function
-function u0 = icfun(x)
+function u0 = icfun(local_x)
 
-% u0 = exp(-(x).^2);
+global x f0 w0
 
-u0 = [0.4*exp(-(x).^2); 
-      0.2*exp(-(x).^2); 
-      1 - exp(-(x).^2)];
+% u0 = [0.2*exp(-(x + L*0.7).^2); 
+%       exp(-(x + L).^2)];
 
+u0 = [interp1(x,f0,local_x);
+      interp1(x,w0,local_x)];
 
 end
 
 %%% BC function
 function [pl,ql,pr,qr] = bcs(xl,ul,xr,ur,t)
+global lambda mu
 
-% %%% Diriclet ul = ur = 0 for c,f
-% %%% oxygen is no flux
-% pl = [ul(1); ul(2); 0];
-% ql = [0; 0; 1];
-% pr = [ur(1); ur(2); 0];
-% qr = [0; 0; 1];
+%%% Diriclet ul = ur = 0
+pl = [ul(1)*0; ul(2) - lambda/mu];
+ql = [1; 0];
+pr = [ur(1)*0; ur(2) - lambda/mu];
+qr = [1; 0];
 
-%%% No flux
-pl = [0; 0; 0];
-ql = [1; 1; 1];
-pr = [0; 0; 0];
-qr = [1; 1; 1];
+% %%% No flux
+% pl = [0; 0; 0];
+% ql = [1; 1; 1];
+% pr = [0; 0; 0];
+% qr = [1; 1; 1];
 
 end

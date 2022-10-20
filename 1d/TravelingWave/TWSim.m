@@ -156,7 +156,7 @@ global c0 f0 w0 x
 %       1 - exp(-(x).^2)];
 
 u0 = [interp1(x,c0,local_x); 
-      interp1(x,f0,local_x);; 
+      interp1(x,f0,local_x);
       interp1(x,w0,local_x);];
 
 end
