@@ -24,7 +24,7 @@ Dw = 0.5e0;
 % last spot is for
 p = [beta, dc, df, local_lambda, mu, eta, q, Dc, Df, Dw];
 
-tmax = 80;
+tmax = 580;
 t = linspace(0,tmax,50);
 dt = tmax/(length(t));
 
@@ -34,7 +34,7 @@ results = zeros(length(DomainSize),1);
 m = 0;
 
 % tolerance for finding radius
-tol = 1e-2;
+tol = 1e-3;
 
 tic
 parfor i = 1:length(results)
@@ -69,7 +69,7 @@ toc
 
 % figure()
 hold on; box on
-plot(DomainSize,smooth(results),'linewidth',2)
+plot(DomainSize,(results),'linewidth',2)
 xlabel('Radius of Domain')
 ylabel('Raidus of Anaerobe Blob')
 
