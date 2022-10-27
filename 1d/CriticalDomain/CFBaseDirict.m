@@ -8,22 +8,22 @@ global beta dc df mu eta lambda Dc Df Dw L q
 %%% assign variables
 beta = 5.0;
 dc = 1.0e-1;
-df = 8.0e-1;
+df = 1.0e-1;
 
 lambda = 0.0;
 mu = 0.01;
-eta = 5.0;
-q = 4.5;
+eta = .50;
+q = 1.5;
 
 Dc = 4e-6;
 Df = 4e-4;
-Dw = 0.5e-1;
+Dw = 0.5e-0;
 
 %%% Domain
-L = 3.37;
+L = 5.7313;
 x = linspace(-L,L,100);
 
-tmax = 40;
+tmax = 540;
 t = linspace(0,tmax);
 dt = tmax/(length(t));
 
