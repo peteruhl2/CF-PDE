@@ -13,7 +13,7 @@ df = 1.0e-1;
 lambda = 0.0;
 mu = 0.01;
 eta = .50;
-q = 1.5;
+q = .5;
 
 Dc = 4e-6;
 Df = 4e-4;
@@ -21,27 +21,28 @@ Dw = 0.5e-1;
 
 p = [beta, dc, df, eta, q, Dc, Df];
 
-tmax = 580;
+tmax = 280;
 t = linspace(0,tmax,50);
 dt = tmax/(length(t));
 
 %%% Solver loop
-DW = linspace(0.5e-3,0.5e-1,100);
-DomainSize = linspace(0.01, 4, 100);
-results = zeros(length(DomainSize),1);
-Crit = zeros(length(DW),1);
+res = 20;
+DW = linspace(0.5e-4,0.5e-0,res);
+DomainSize = linspace(0.01, 4, res);
+results = zeros(length(DW),1);
+tempresult = 0;
 m = 0;
 
 % tolerance for finding radius
 tol = 1e-3;
 
-
 tic
-for i = 1:length(DW)
+parfor i = 1:length(DW)
     
     Dw = DW(i);
+    tempresult = 0;
     
-    parfor j = 1:length(results)
+    for j = 1:length(DomainSize)    
         [i j]
 
         %%% Set domain
@@ -49,7 +50,7 @@ for i = 1:length(DW)
         x = linspace(-L,L,100);
 
         %%% solve pde
-        fun = @(x,t,u,dudx) rhs(x,t,u,dudx,p,L);
+        fun = @(x,t,u,dudx) rhs(x,t,u,dudx,p,Dw);
         sol = pdepe(m, fun, @icfun, @bcs, x, t);
 
         %%% record radius of f blob
@@ -59,28 +60,22 @@ for i = 1:length(DW)
 
         %%% store 0 if there is no blob
         try
-            results(j) = x(idx);
+            tempresult = x(idx);
         catch
-            results(j) = 0;
+            tempresult = 0;
         end
-
-    end
-
-
-    %%% print critical domain size
-    critdx = find(results <= 0, 1, 'last' );
-    critd = DomainSize(critdx);
-    Crit(i) = critd;
-    
-end % parameter loop
-
-
-
+        
+        %%% break if passed critical domain size
+        if tempresult > 0
+            %%% get the previous x point, which is 
+            %%% the last one where F went extinct
+            results(i) = L;
+            break
+        end
+        
+    end % while loop
+end % loop on parameter loop
 toc
-
-
-
-
 
 % %%% print critical domain size
 % critdx = find(results <= 0, 1, 'last' );
@@ -91,11 +86,11 @@ toc
 
 %%% Plots =================================================================
 
-% figure()
+figure()
 hold on; box on
-plot(DW,(Crit),'linewidth',2)
+plot(DW,(results),'linewidth',2)
 xlabel('D_w')
-ylabel('Critical Domain Size')
+ylabel('L')
 
 
 

@@ -13,14 +13,15 @@ df = 1.0e-1;
 lambda = 0.0;
 mu = 0.01;
 eta = .50;
-q = 1.5;
+q = 5.5;
 
 Dc = 4e-6;
 Df = 4e-4;
-Dw = 0.5e-0;
+% Dw = 0.5e-1;
+Dw = 0.1727;
 
 %%% Domain
-L = 5.7313;
+L = 1.74;
 x = linspace(-L,L,100);
 
 tmax = 540;
@@ -34,21 +35,21 @@ toc
 
 %%% Plots =================================================================
 
-% ---- Plot the solution --- %
-step=1;  %step every second
-for tt=1:step:length(t)
-% disp(sprintf('time = %d',(tt-1)*dt));
-disp((sprintf('time = %.02f out of %d',tt*dt,tmax)));
-plot(x,sol(tt,:,1),x,sol(tt,:,2),x,sol(tt,:,3),'linewidth',2);
-% legend('c','f','w');
-% ylim([-0.1,lambda/mu]);
-ylim([-0.1,1.1]);
-% axis tight
-drawnow;
-%     pause(0.0025);
-end
-close
-% -------------------------- %
+% % ---- Plot the solution --- %
+% step=1;  %step every second
+% for tt=1:step:length(t)
+% % disp(sprintf('time = %d',(tt-1)*dt));
+% disp((sprintf('time = %.02f out of %d',tt*dt,tmax)));
+% plot(x,sol(tt,:,1),x,sol(tt,:,2),x,sol(tt,:,3),'linewidth',2);
+% % legend('c','f','w');
+% % ylim([-0.1,lambda/mu]);
+% ylim([-0.1,1.1]);
+% % axis tight
+% drawnow;
+% %     pause(0.0025);
+% end
+% close
+% % -------------------------- %
 
 
 
