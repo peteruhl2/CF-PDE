@@ -21,20 +21,20 @@ Dw = 0.5e-1;
 
 p = [beta, dc, df, eta, q, Dc, Df];
 
-tmax = 280;
+tmax = 1080;
 t = linspace(0,tmax,50);
 dt = tmax/(length(t));
 
 %%% Solver loop
 res = 20;
-DW = linspace(0.5e-4,0.5e-0,res);
-DomainSize = linspace(0.01, 4, res);
+DW = linspace(0,10.5e-0,res);
+DomainSize = linspace(0.01, 15, res);
 results = zeros(length(DW),1);
 tempresult = 0;
 m = 0;
 
 % tolerance for finding radius
-tol = 1e-3;
+tol = 1e-2;
 
 tic
 parfor i = 1:length(DW)
