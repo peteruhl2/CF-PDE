@@ -6,17 +6,19 @@ ct = bete*w/(b + w)*c*(1-c-f) - dc*c + Dc Lap(c)
 ft = beta(1 - w/(b + w))*f*(1-c-f) - df*f + Df Lap(f)
 wt = lambda - mu*w - eta*c*w + Dw Lap(w)
 
-TODO: Write desciption
+Want to have Dirichlet BC for oxygen and no-flow
+for c and f
 
 """
 
 from __future__ import print_function
 from fenics import *
 from mshr import *
+from dolfin import *
 import numpy as np
 import sys
 
-T = 10.0            # final time
+T = 20.0            # final time
 num_steps = 500    # number of time steps
 dt = T / num_steps # time step size
 k = Constant(dt)
@@ -34,6 +36,7 @@ eta = 10.54
 Dc = 1.32e-8
 Df = 1.32e-2
 Dw = 1.32e-3
+w_r = 1.0
 
 beta = Constant(beta)
 b = Constant(b)
@@ -47,14 +50,16 @@ eta = Constant(eta)
 Dc = Constant(Dc)
 Df = Constant(Df)
 Dw = Constant(Dw)
+w_r = Constant(w_r)
 
 # Read mesh from file
 # mesh = Mesh('navier_stokes_cylinder/cylinder.xml.gz')
-L = 0.5
+L = .2
 nx = ny = 20
 # mesh = RectangleMesh(Point(-L, -L), Point(L, L), nx, ny)
 domain = Circle(Point(0, 0), L)
-mesh = generate_mesh(domain, 64)
+
+mesh = generate_mesh(domain, nx)
 
 # Define function space for system of concentrations
 P1 = FiniteElement('P', triangle, 1)
@@ -69,7 +74,7 @@ u = Function(V)
 u_n = Function(V)
 
 # Guasian ICs for C and F
-u_0 = Expression(('0.1*exp(-100*pow(x[0]-0.4, 2) - 100*pow(x[1]-0.5, 2))','0.4*exp(-100*pow(x[0]- L/2, 2) - 100*pow(x[1]-0.6, 2))','0.1'), degree = 2, L=L)
+u_0 = Expression(('0.1*exp(-100*pow(x[0], 2) - 100*pow(x[1], 2))','0.4*exp(-100*pow(x[0], 2) - 100*pow(x[1], 2))','0.1'), degree = 2, L=L)
 u_n = interpolate(u_0, V)
 
 # # Constant initial conditions for checking against ODE
@@ -148,25 +153,9 @@ for n in range(num_steps):
 ### write out function values for anaerobic population
 u_1, u_2, u_3 = split(u)
 
-outfile = open('cf_sys/u out.txt','w')
-
-x = np.linspace(-L,L,100)
-y = np.linspace(-L,L,100)
-X,Y = np.meshgrid(x,y)
-results = np.zeros((len(x),len(y)))
-
-### note that the solution funciton u can be called
-print("Writing anaerobe function to file...")
-for i in range(len(x)):
-      for j in range(len(y)):
-            results[i,j] = u_2( [x[i], y[j]])
-            
-results = np.reshape(results,((len(x)*len(y))))
-
-for p in results:
-      print(p, file = outfile)
+# outfile = open('cf_sys/u out.txt','w')
       
-outfile.close()
+# outfile.close()
 
 
 print("Argv[1] is ", sys.argv[1])

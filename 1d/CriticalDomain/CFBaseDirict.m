@@ -18,10 +18,10 @@ q = .5;
 Dc = 4e-6;
 Df = 4e-4;
 % Dw = 0.5e-1;
-Dw = 9.39;
+Dw = 8.65;
 
 %%% Domain
-L = 7.8;
+L = 7.23;
 x = linspace(-L,L,100);
 
 % tolerance for finding radius

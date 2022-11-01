@@ -26,7 +26,7 @@ t = linspace(0,tmax,50);
 dt = tmax/(length(t));
 
 %%% Solver loop
-res = 20;
+res = 400;
 DW = linspace(0,10.5e-0,res);
 DomainSize = linspace(0.01, 15, res);
 results = zeros(length(DW),1);
