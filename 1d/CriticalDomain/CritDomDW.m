@@ -90,7 +90,7 @@ figure()
 hold on; box on
 plot(DW,(results),'linewidth',2)
 xlabel('D_w')
-ylabel('L')
+ylabel('Critical Domain Size')
 
 
 

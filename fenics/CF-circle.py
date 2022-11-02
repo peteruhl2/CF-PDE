@@ -30,9 +30,7 @@ n = 1.0
 dc = 9e-5
 df = 9e-1
 q = 4.48e-0
-mu = 0.01312
-_lambda = 0.01312
-eta = 10.54
+eta = 1.54
 Dc = 1.32e-8
 Df = 1.32e-2
 Dw = 1.32e-3
@@ -44,8 +42,6 @@ n = Constant(n)
 dc = Constant(dc)
 df = Constant(df)
 q = Constant(q)
-mu = Constant(mu)
-_lambda = Constant(_lambda)
 eta = Constant(eta)
 Dc = Constant(Dc)
 Df = Constant(Df)
@@ -58,13 +54,20 @@ L = .2
 nx = ny = 20
 # mesh = RectangleMesh(Point(-L, -L), Point(L, L), nx, ny)
 domain = Circle(Point(0, 0), L)
-
 mesh = generate_mesh(domain, nx)
 
 # Define function space for system of concentrations
 P1 = FiniteElement('P', triangle, 1)
 element = MixedElement([P1, P1, P1])
 V = FunctionSpace(mesh, element)
+
+# Define boundary condition for oxygen
+def boundary(x, on_boundary):
+    return on_boundary
+
+# v.sub(2) puts a dirichlet BC only on the
+# third component (oxygen)
+bc = DirichletBC(V.sub(2), w_r, boundary)
 
 # Define test functions
 v_1, v_2, v_3 = TestFunctions(V)
@@ -85,13 +88,6 @@ u_n = interpolate(u_0, V)
 u_1, u_2, u_3 = split(u)
 u_n1, u_n2, u_n3 = split(u_n)
 
-# Define source terms
-f_1 = Expression('pow(x[0]-0.4,2)+pow(x[1]-0.4,2)<0.05*0.05 ? 0.5 : 0',
-                 degree=1)
-f_2 = Expression('pow(x[0]-0.1,2)+pow(x[1]-0.3,2)<0.05*0.05 ? 0.5 : 0',
-                 degree=1)
-f_3 = Constant(0)
-
 
 # Define variational problem
 F = ((u_1 - u_n1) / k)*v_1*dx  \
@@ -99,7 +95,7 @@ F = ((u_1 - u_n1) / k)*v_1*dx  \
   + ((u_2 - u_n2) / k)*v_2*dx  \
   + Df*dot(grad(u_2), grad(v_2))*dx - beta*(1 - u_3/( b + u_3 ))*u_2*(1-u_1-u_2)*v_2*dx + df*u_2*v_2*dx + q*u_2*u_3*v_2*dx  \
   + ((u_3 - u_n3) / k)*v_3*dx  \
-  + Dw*dot(grad(u_3), grad(v_3))*dx - _lambda*v_3*dx + eta*u_1*u_3*v_3*dx + mu*u_3*v_3*dx
+  + Dw*dot(grad(u_3), grad(v_3))*dx + eta*u_1*u_3*v_3*dx
 
 # # Define variational problem
 # F = ((u_1 - u_n1) / k)*v_1*dx  \
@@ -132,7 +128,7 @@ for n in range(num_steps):
     # timeseries_w.retrieve(w.vector(), t)
 
     # Solve variational problem for time step
-    solve(F == 0, u)
+    solve(F == 0, u, bc)
 
     # Save solution to file (VTK)
     _u_1, _u_2, _u_3 = u.split()
