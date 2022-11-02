@@ -27,8 +27,8 @@ dt = tmax/(length(t));
 
 %%% Solver loop
 res = 200;
-Eta = linspace(0,1,res);
-DomainSize = linspace(0.01, 15, res);
+Eta = linspace(0,0.5,res);
+DomainSize = linspace(0.01, 5, res);
 results = zeros(length(Eta),1);
 tempresult = 0;
 m = 0;

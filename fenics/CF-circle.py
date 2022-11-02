@@ -33,7 +33,7 @@ q = 4.48e-0
 eta = 1.54
 Dc = 1.32e-8
 Df = 1.32e-2
-Dw = 1.32e-3
+Dw = 1.32e-1
 w_r = 1.0
 
 beta = Constant(beta)
@@ -50,8 +50,9 @@ w_r = Constant(w_r)
 
 # Read mesh from file
 # mesh = Mesh('navier_stokes_cylinder/cylinder.xml.gz')
-L = .2
-nx = ny = 20
+# L = .2
+L = float(sys.argv[1])
+nx = ny = 40
 # mesh = RectangleMesh(Point(-L, -L), Point(L, L), nx, ny)
 domain = Circle(Point(0, 0), L)
 mesh = generate_mesh(domain, nx)
