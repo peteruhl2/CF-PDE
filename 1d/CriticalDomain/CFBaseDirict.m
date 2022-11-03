@@ -12,8 +12,8 @@ df = 1.0e-1;
 
 lambda = 0.0;
 mu = 0.01;
-% eta = .50;
-eta = 2.14;
+eta = .50;
+% eta = 2.14;
 q = .5;
 
 Dc = 4e-6;
@@ -22,13 +22,13 @@ Dw = 0.5e-1;
 % Dw = 8.65;
 
 %%% Domain
-L = .200123;
+L = .800123;
 x = linspace(-L,L,100);
 
 % tolerance for finding radius
 tol = 1e-2;
 
-tmax = 540;
+tmax = 100;
 t = linspace(0,tmax);
 dt = tmax/(length(t));
 
