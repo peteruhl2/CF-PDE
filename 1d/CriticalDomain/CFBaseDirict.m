@@ -22,7 +22,7 @@ Dw = 0.5e-1;
 % Dw = 8.65;
 
 %%% Domain
-L = .800123;
+L = .200123;
 x = linspace(-L,L,100);
 
 % tolerance for finding radius
@@ -39,21 +39,21 @@ toc
 
 %%% Plots =================================================================
 
-% % ---- Plot the solution --- %
-% step=1;  %step every second
-% for tt=1:step:length(t)
-% % disp(sprintf('time = %d',(tt-1)*dt));
-% disp((sprintf('time = %.02f out of %d',tt*dt,tmax)));
-% plot(x,sol(tt,:,1),x,sol(tt,:,2),x,sol(tt,:,3),'linewidth',2);
-% % legend('c','f','w');
-% % ylim([-0.1,lambda/mu]);
-% ylim([-0.1,1.1]);
-% % axis tight
-% drawnow;
-% %     pause(0.0025);
-% end
-% close
-% % -------------------------- %
+% ---- Plot the solution --- %
+step=1;  %step every second
+for tt=1:step:length(t)
+% disp(sprintf('time = %d',(tt-1)*dt));
+disp((sprintf('time = %.02f out of %d',tt*dt,tmax)));
+plot(x,sol(tt,:,1),x,sol(tt,:,2),x,sol(tt,:,3),'linewidth',2);
+% legend('c','f','w');
+% ylim([-0.1,lambda/mu]);
+ylim([-0.1,1.1]);
+% axis tight
+drawnow;
+%     pause(0.0025);
+end
+close
+% -------------------------- %
 
 
 

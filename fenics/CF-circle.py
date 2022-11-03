@@ -18,13 +18,13 @@ from dolfin import *
 import numpy as np
 import sys
 
-T = 100.0            # final time
-num_steps = 2000    # number of time steps
+T = 20.0            # final time
+num_steps = 1000    # number of time steps
 dt = T / num_steps # time step size
 k = Constant(dt)
 
 # CF params
-beta = 5.0
+beta = 8.0
 b = 1.
 n = 1.0
 dc = 0.1
@@ -52,7 +52,7 @@ w_r = Constant(w_r)
 # mesh = Mesh('navier_stokes_cylinder/cylinder.xml.gz')
 # L = .2
 L = float(sys.argv[1])
-nx = ny = 50
+nx = ny = 30
 # mesh = RectangleMesh(Point(-L, -L), Point(L, L), nx, ny)
 domain = Circle(Point(0, 0), L)
 mesh = generate_mesh(domain, nx)
