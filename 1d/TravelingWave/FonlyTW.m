@@ -8,18 +8,18 @@
 
 global r d lambda mu q c Df Dw
 
-r = 25.0;
-d = 1.0;
+r = 5.0;
+d = 0.1;
 lambda = 1.0;
 mu = 0.9;
-q = 2;
+q = 0.1;
 
-c = 10.0;
+c = 1.0;
 Df = 1e-2;
 Dw = 1e-0;
 
-L = 25.0;
-y0 = [0.50; 20.2; lambda/mu; -10.2];
+L = 5.0;
+y0 = [0.5; 0.0; 1; 0.0];
 domain = [-L L];
 
 [t,y] = ode15s(@(t,y) rhs(t,y), domain, y0);
@@ -57,7 +57,8 @@ psiw = y(4);
 yp(1) = psif;
 yp(2) = (-c*psif - r*(1 - phiw/(1+phiw))*phif*(1-phif) + d*phif + q*phif*phiw)/Df;
 yp(3) = psiw;
-yp(4) = (-c*psiw - lambda + mu*phiw)/Dw;
+% yp(4) = (-c*psiw - lambda + mu*phiw)/Dw;
+yp(4) = (-c*psiw)/Dw;
 
 yp = yp';
 end

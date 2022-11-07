@@ -23,14 +23,14 @@ Df = 4e-4;
 Dw = 0.5e-1;
 
 % last spot is for
-p = [beta, dc, df, local_lambda, mu, eta, q, Dc, Df, Dw];
+p = [beta, dc, df, lambda, mu, eta, q, Dc, Df, Dw];
 
-tmax = 580;
+tmax = 1080;
 t = linspace(0,tmax,50);
 dt = tmax/(length(t));
 
 %%% Solver loop
-DomainSize = linspace(0.01, 1, 200);
+DomainSize = linspace(0.01, 30, 200);
 results = zeros(length(DomainSize),1);
 m = 0;
 

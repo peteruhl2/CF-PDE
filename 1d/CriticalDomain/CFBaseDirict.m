@@ -22,13 +22,13 @@ Dw = 0.5e-1;
 % Dw = 8.65;
 
 %%% Domain
-L = .200123;
+L = .800123;
 x = linspace(-L,L,100);
 
 % tolerance for finding radius
 tol = 1e-2;
 
-tmax = 100;
+tmax = 300;
 t = linspace(0,tmax);
 dt = tmax/(length(t));
 

@@ -12,7 +12,7 @@
 global r d lambda mu q c Df Dw
 global x f0 w0
 
-r = 15.0*0;
+r = 15.0;
 d = 1.5;
 lambda = 3.0;
 mu = 0.9;

@@ -24,7 +24,7 @@ dt = T / num_steps # time step size
 k = Constant(dt)
 
 # CF params
-beta = 8.0
+beta = 5.0
 b = 1.
 n = 1.0
 dc = 0.1
@@ -78,7 +78,7 @@ u = Function(V)
 u_n = Function(V)
 
 # Guasian ICs for C and F
-u_0 = Expression(('0.4*exp(-1*pow(x[0], 2) - 1*pow(x[1], 2))','0.2*exp(-1*pow(x[0], 2) - 1*pow(x[1], 2))','0.1'), degree = 2, L=L)
+u_0 = Expression(('0.4*exp(-1*pow(x[0], 2) - 1*pow(x[1], 2))','0.2*exp(-1*pow(x[0], 2) - 1*pow(x[1], 2))','1.0'), degree = 2, L=L)
 u_n = interpolate(u_0, V)
 
 # # Constant initial conditions for checking against ODE
