@@ -10,7 +10,7 @@
 %%% started 10/3/22
 
 global r d lambda mu q c Df Dw
-global x f0 w0 L
+global x f0 w0
 
 r = 15.0;
 d = 1.5;
@@ -23,9 +23,8 @@ Df = 1e-4;
 Dw = 1e-0;
 
 %%% Domain
-L = 3.;
+L = 10.;
 x = linspace(-L,L,100);
-% x = linspace(0, L ,100);
 
 %%% solve ode for traveling wave solution
 y0 = [0.1; 0.; lambda/mu; 0.];
@@ -125,14 +124,13 @@ global x f0 w0 L
 % u0 = [0.2*exp(-(x + L*0.7).^2); 
 %       exp(-(x + L).^2)];
 
+%%% oxygen pro
+a10 = 23;
+y10 = exp(-a10*x);
+
 u0 = [interp1(x,f0,local_x);
       interp1(x,w0,local_x)];
 
-
-% %%% exponential distriubtions at
-% %%% left for ox and right for f
-% u0 = [exp(-25*(local_x));
-%       exp(25*(local_x - L))];
 end
 
 %%% BC function

@@ -3,33 +3,32 @@
 %%%
 %%% started 9/22/2022
 
-global beta dc df mu eta lambda Dc Df Dw L q
+global beta dc df eta Dc Df Dw L q a
 
 %%% assign variables
-beta = 5.0;
+beta = 1.0;
 dc = 1.0e-1;
 df = 1.0e-1;
 
-lambda = 0.0;
-mu = 0.01;
-eta = .50;
-% eta = 2.14;
+eta = 1.50;
 q = .5;
 
 Dc = 4e-6;
 Df = 4e-4;
-Dw = 0.5e-1;
-% Dw = 8.65;
+Dw = 1;
+
+%%% oxygen decent parameter
+a = 20;
 
 %%% Domain
-L = .800123;
+L = 1.800123;
 x = linspace(-L,L,100);
 
 % tolerance for finding radius
 tol = 1e-2;
 
-tmax = 300;
-t = linspace(0,tmax);
+tmax = 600;
+t = linspace(0,tmax,100);
 dt = tmax/(length(t));
 
 tic
@@ -97,7 +96,7 @@ title('Oxygen')
 
 %%% RHS PDE function
 function [c,f,s] = rhs(x,t,u,dudx)
-global beta dc df mu eta Dc Df Dw L lambda q 
+global beta dc df eta Dc Df Dw L q 
 
 c = [1; 1; 1];
 f = [Dc*dudx(1); Df*dudx(2); Dw*dudx(3)];
@@ -110,12 +109,11 @@ end
 
 %%% IC function
 function u0 = icfun(x)
-
-% u0 = exp(-(x).^2);
+global L a
 
 u0 = [0.4*exp(-(x).^2); 
-      0.2*exp(-(x).^2); 
-      1 - exp(-(x).^2)];
+      0.4*exp(-(x).^2); 
+      (exp(a*(x-L)) + exp(-a*(x+L)))];
 
 end
 
