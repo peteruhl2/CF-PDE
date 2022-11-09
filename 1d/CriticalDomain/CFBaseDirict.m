@@ -27,7 +27,7 @@ x = linspace(-L,L,100);
 % tolerance for finding radius
 tol = 1e-2;
 
-tmax = 600;
+tmax = 200;
 t = linspace(0,tmax,100);
 dt = tmax/(length(t));
 
