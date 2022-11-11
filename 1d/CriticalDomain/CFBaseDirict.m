@@ -7,27 +7,27 @@ global beta dc df eta Dc Df Dw L q a
 
 %%% assign variables
 beta = 1.0;
-dc = 1.0e-1;
-df = 1.0e-1;
+dc = 1.0e-4;
+df = 1.0e-4;
 
-eta = 1.50;
-q = .5;
+eta = 2.50;
+q = 3.5;
 
-Dc = 4e-6;
-Df = 4e-4;
+Dc = 4e-8;
+Df = 4e-8;
 Dw = 1;
 
 %%% oxygen decent parameter
 a = 20;
 
 %%% Domain
-L = 1.800123;
+L = 5.000123;
 x = linspace(-L,L,100);
 
 % tolerance for finding radius
 tol = 1e-2;
 
-tmax = 200;
+tmax = 400;
 t = linspace(0,tmax,100);
 dt = tmax/(length(t));
 
@@ -50,6 +50,7 @@ ylim([-0.1,1.1]);
 % axis tight
 drawnow;
 %     pause(0.0025);
+% waitforbuttonpress
 end
 close
 % -------------------------- %

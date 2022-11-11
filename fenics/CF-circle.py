@@ -52,7 +52,7 @@ w_r = Constant(w_r)
 # mesh = Mesh('navier_stokes_cylinder/cylinder.xml.gz')
 # L = .2
 L = float(sys.argv[1])
-nx = ny = 30
+nx = ny = 40
 # mesh = RectangleMesh(Point(-L, -L), Point(L, L), nx, ny)
 domain = Circle(Point(0, 0), L)
 mesh = generate_mesh(domain, nx)
@@ -78,7 +78,10 @@ u = Function(V)
 u_n = Function(V)
 
 # Guasian ICs for C and F
-u_0 = Expression(('0.4*exp(-1*pow(x[0], 2) - 1*pow(x[1], 2))','0.2*exp(-1*pow(x[0], 2) - 1*pow(x[1], 2))','1.0'), degree = 2, L=L)
+# u_0 = Expression(('0.4*exp(-1*pow(x[0], 2) - 1*pow(x[1], 2))','0.2*exp(-1*pow(x[0], 2) - 1*pow(x[1], 2))','1.0'), degree = 2, L=L)
+# pow(x[0],2) + pow(x[1],2) <= L ? 0 : w_r
+u_0 = Expression(('0.4*exp(-1*pow(x[0], 2) - 1*pow(x[1], 2))','0.2*exp(-1*pow(x[0], 2) - 1*pow(x[1], 2))','pow(x[0],2) + pow(x[1],2) <= pow(L,2) ? 0 : w_r'), degree = 2, L=L, w_r = w_r)
+
 u_n = interpolate(u_0, V)
 
 # # Constant initial conditions for checking against ODE
