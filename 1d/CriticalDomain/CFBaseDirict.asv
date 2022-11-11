@@ -50,7 +50,7 @@ ylim([-0.1,1.1]);
 % axis tight
 drawnow;
 %     pause(0.0025);
-% waitforbuttonpress
+waitforbuttonpress
 end
 close
 % -------------------------- %
@@ -112,13 +112,13 @@ end
 function u0 = icfun(x)
 global L a
 
-u0 = [0.4*exp(-(x).^2); 
-      0.4*exp(-(x).^2); 
-      (exp(a*(x-L)) + exp(-a*(x+L)))];
-
-% u0 = [0.4; 
+% u0 = [0.4*exp(-(x).^2); 
 %       0.4*exp(-(x).^2); 
 %       (exp(a*(x-L)) + exp(-a*(x+L)))];
+
+u0 = [0.4; 
+      0.4*exp(-(x).^2); 
+      (exp(a*(x-L)) + exp(-a*(x+L)))];
 
 end
 

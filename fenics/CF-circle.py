@@ -80,7 +80,8 @@ u_n = Function(V)
 # Guasian ICs for C and F
 # u_0 = Expression(('0.4*exp(-1*pow(x[0], 2) - 1*pow(x[1], 2))','0.2*exp(-1*pow(x[0], 2) - 1*pow(x[1], 2))','1.0'), degree = 2, L=L)
 # pow(x[0],2) + pow(x[1],2) <= L ? 0 : w_r
-u_0 = Expression(('0.4*exp(-1*pow(x[0], 2) - 1*pow(x[1], 2))','0.2*exp(-1*pow(x[0], 2) - 1*pow(x[1], 2))','pow(x[0],2) + pow(x[1],2) <= pow(L,2) ? 0 : w_r'), degree = 2, L=L, w_r = w_r)
+u_0 = Expression(('0.4*exp(-1*pow(x[0], 2) - 1*pow(x[1], 2))','0.2*exp(-1*pow(x[0], 2) - 1*pow(x[1], 2))',\
+      'pow(x[0],2) + pow(x[1],2) <= pow(L,2) ? 0 : w_r'), degree = 2, L=L, w_r = w_r)
 
 u_n = interpolate(u_0, V)
 
