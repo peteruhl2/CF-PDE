@@ -8,10 +8,10 @@ global beta dc df eta Dc Df Dw L q a
 %%% assign variables
 beta = 1.0;
 dc = 1.0e-3;
-df = 1.0e-6;
+df = 1.0e-3;
 
-eta = 2.50;
-q = 1.5;
+eta = 20.50;
+q = .5;
 
 Dc = 4e-8;
 Df = 4e-8;
@@ -21,13 +21,13 @@ Dw = 1;
 a = 20;
 
 %%% Domain
-L = 10.000123;
+L = 2.000123;
 x = linspace(-L,L,100);
 
 % tolerance for finding radius
 tol = 1e-2;
 
-tmax = 600;
+tmax = 1600;
 t = linspace(0,tmax,100);
 dt = tmax/(length(t));
 
@@ -44,8 +44,8 @@ for tt=1:step:length(t)
 % disp(sprintf('time = %d',(tt-1)*dt));
 disp((sprintf('time = %.02f out of %d',tt*dt,tmax)));
 plot(x,sol(tt,:,1),x,sol(tt,:,2),x,sol(tt,:,3),'linewidth',2);
-% legend('c','f','w');
-% ylim([-0.1,lambda/mu]);
+str = "t = " + tt*dt;
+title(str)
 ylim([-0.1,1.1]);
 % axis tight
 drawnow;
