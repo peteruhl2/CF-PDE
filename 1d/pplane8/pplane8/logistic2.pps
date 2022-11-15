@@ -1,0 +1,12 @@
+%% PPLANE file %%
+
+H.name = 'logistic2.pps';
+H.xvar = 'x';
+H.yvar = 'y';
+H.xder = 'r1*x*(1-x-y) - d1*x';
+H.yder = 'r2*y*(1-x-y) - d2*y';
+H.pname = {'r1','d2','r2','','d1',''};
+H.pval = {'2','0.01','1.5','','0.01',''};
+H.fieldtype = 'arrows';
+H.npts = 20;
+H.wind = [-2  4 -4  2];
