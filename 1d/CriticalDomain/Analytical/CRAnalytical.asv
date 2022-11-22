@@ -9,11 +9,11 @@ global r D C L a q
 r = 1.00;
 C = 5/sqrt(6);
 D = 1;
-q = 5.1;
-a = 20;
+q = 4.1;
+a = 10.5;
 
 %%% Domain
-L = 2.6;
+L = 1.0096922;
 x = linspace(0,L);
 
 tmax = 100;
@@ -24,7 +24,7 @@ m = 0;
 sol = pdepe(m, @rhs, @icfun, @bcs, x, t);
 
 crit = pi*sqrt(D/(q-r));
-% crit = pi*sqrt(D/r);
+% crit = pi*sqrt(D/(r));
 
 %%% Plots =================================================================
 
@@ -39,6 +39,7 @@ plot(x,sol(tt,:));
 ylim([-0.1,1.1]);
 drawnow;
 %     pause(0.0025);
+% waitforbuttonpress
 end
 % -------------------------- %
 
@@ -70,7 +71,8 @@ global r D a q
 
 c = 1;
 f = D*dudx;
-s = r*(1 - 1/(1 + exp(a*x)))*u*(1-u) - q*exp(-a*x)*u;
+% s = r*(1 - 1/(1 + exp(a*x)))*u*(1-u) - q*exp(-a*x)*u;
+s = r*u*(1-u) - q*exp(-a*x)*u;
 
 % s = r*u*(1-u);
 end
@@ -91,17 +93,17 @@ end
 function [pl,ql,pr,qr] = bcs(xl,ul,xr,ur,t)
 global D
 
-%%% Diriclet ul = ur = 0
-pl = ul;
-ql = 0;
-pr = ur;
-qr = 0;
+% %%% Diriclet ul = ur = 0
+% pl = ul;
+% ql = 0;
+% pr = ur;
+% qr = 0;
 
-% %%% No flux
-% pl = 0;
-% ql = 1;
-% pr = 0;
-% qr = 1;
+%%% No flux
+pl = 0;
+ql = 1;
+pr = 0;
+qr = 1;
 
 end
 
