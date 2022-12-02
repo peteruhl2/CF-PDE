@@ -9,8 +9,8 @@ global r D C L a q
 r = 1.00;
 C = 5/sqrt(6);
 D = 10;
-q = 10;
-a = 1.;
+q = 1;
+a = 10.5;
 
 %%% Domain
 L = 5.90601096922;
