@@ -13,7 +13,7 @@ q = 10;
 a = 1.;
 
 %%% Domain
-L = 5.90601096922;
+L = 1.90601096922;
 x = linspace(-L,L);
 
 tmax = 100;
@@ -24,7 +24,7 @@ m = 0;
 sol = pdepe(m, @rhs, @icfun, @bcs, x, t);
 
 % crit = pi*sqrt(D/(q-r));
-crit = pi*sqrt(D/(r))/2;
+crit = pi*sqrt(D/(q));
 
 %%% Plots =================================================================
 
@@ -95,17 +95,17 @@ end
 function [pl,ql,pr,qr] = bcs(xl,ul,xr,ur,t)
 global D
 
-%%% Diriclet ul = ur = 0
-pl = ul;
-ql = 0;
-pr = ur;
-qr = 0;
+% %%% Diriclet ul = ur = 0
+% pl = ul;
+% ql = 0;
+% pr = ur;
+% qr = 0;
 
-% %%% No flux
-% pl = 0;
-% ql = 1;
-% pr = 0;
-% qr = 1;
+%%% No flux
+pl = 0;
+ql = 1;
+pr = 0;
+qr = 1;
 
 end
 
