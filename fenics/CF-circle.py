@@ -2,7 +2,7 @@
 CF-PDE system on a ciruclar domain
 Model is:
 
-ct = bete*w/(b + w)*c*(1-c-f) - dc*c + Dc Lap(c)
+ct = beta*w/(b + w)*c*(1-c-f) - dc*c + Dc Lap(c)
 ft = beta(1 - w/(b + w))*f*(1-c-f) - df*f + Df Lap(f)
 wt = lambda - mu*w - eta*c*w + Dw Lap(w)
 
